@@ -1,0 +1,44 @@
+{
+  "name": "docker-volume-backup",
+  "version": "0.0.1",
+  "description": "Backup Docker Volumes",
+  "repository": "https://github.com/CWSpear/docker-volume-backup",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava",
+    "build": "babel src --out-dir dist && replace babel-node node -r ./dist"
+  },
+  "keywords": [
+    "docker",
+    "volume",
+    "data",
+    "container",
+    "backup"
+  ],
+  "author": "CWSpear <cam@cameronspear.com>",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.2.2",
+    "chalk": "^1.1.1",
+    "commander": "^2.9.0",
+    "cron": "^1.1.0",
+    "gcloud": "^0.28.0",
+    "lodash": "^4.3.0",
+    "moment-timezone": "^0.5.0",
+    "replace": "^0.3.0",
+    "tar.gz": "^1.0.3"
+  },
+  "devDependencies": {
+    "ava": "^0.11.0",
+    "babel-cli": "^6.5.1",
+    "babel-preset-nodejs-lts": "^1.2.1"
+  },
+  "ava": {
+    "files": [
+      "tests/*.js"
+    ],
+    "require": [
+      "babel-core/register"
+    ]
+  }
+}
