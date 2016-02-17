@@ -31,7 +31,8 @@
   "devDependencies": {
     "ava": "^0.11.0",
     "babel-cli": "^6.5.1",
-    "babel-preset-nodejs-lts": "^1.2.1"
+    "babel-preset-nodejs-lts": "^1.2.1",
+    "sinon": "^1.17.3"
   },
   "ava": {
     "files": [
