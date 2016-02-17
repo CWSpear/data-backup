@@ -6,4 +6,5 @@ services:
         build:
             context: .
         volumes:
-            - /data/cameronspear/:/data/
+            - /data/cameronspear/:/data/:ro
+        command: cron

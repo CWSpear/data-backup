@@ -7,6 +7,7 @@ const config = {
 
     cleaningStrategy: 'keep-last',
     keepLast: 20,
+    backupFrequency: 'hourly',
     // plans: [
     //     {
     //         frequency: 'hourly',

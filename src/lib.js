@@ -79,9 +79,10 @@ export const clean = Bluebird.coroutine(function* (files = false) {
     });
 });
 
-export function listFiles() {
-    return bucket.getFilesAsync();
-}
+export const listFiles = Bluebird.coroutine(function* listFiles() {
+    let fileList = yield bucket.getFilesAsync();
+    return _.sortBy(fileList, 'name');
+});
 
 export function findFilesToPurgeForTimeMachine(fileList) {
     let filesToPurge = [];
@@ -119,7 +120,8 @@ export function findFilesToPurgeForTimeMachine(fileList) {
 
 export function findFilesToPurgeForKeepLast(fileList) {
     console.log(`Keeping the ${chalk.blue(config.keepLast)} most recent files`);
-    const filesToKeep = _(fileList).sortBy('name').take(config.keepLast).value();
+    // fileList should already be sorted
+    const filesToKeep = _.takeRight(fileList, config.keepLast);
 
     console.log(`Purging a total of ${chalk.blue(fileList.length - filesToKeep.length)} files`);
 
@@ -182,7 +184,7 @@ export const backup = Bluebird.coroutine(function* (isOneOff = false) {
 
 export function runCronJob() {
     return new CronJob({
-        cronTime: cronPatterns[config.plans[0].frequency],
+        cronTime: config.cleaningStrategy === 'keep-last' ? cronPatterns[config.backupFrequency] : cronPatterns[config.plans[0].frequency],
         onTick: backup,
         start: true,
         timeZone: config.timezone,
